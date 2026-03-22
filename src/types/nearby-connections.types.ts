@@ -24,6 +24,7 @@ export interface NearbyConnectionsNativeModule {
   disconnect(targetPeerId?: string): Promise<void>;
 
   sendText(targetPeerId: string, text: string): Promise<void>;
+  sendFile(targetPeerId: string, fileUri: string, fileName: string): Promise<void>;
 }
 
 export enum EventNames {
@@ -33,6 +34,8 @@ export enum EventNames {
   ON_CONNECTED = "onConnected",
   ON_DISCONNECTED = "onDisconnected",
   ON_TEXT_RECEIVED = "onTextReceived",
+  ON_FILE_RECEIVED = "onFileReceived",
+  ON_FILE_PROGRESS = "onFileProgress",
 }
 
 export interface BasePeer {
@@ -65,3 +68,17 @@ export interface TextReceived extends Pick<BasePeer, "peerId"> {
 }
 
 export type OnTextReceived = (data: TextReceived) => void;
+
+export interface FileReceived extends Pick<BasePeer, "peerId"> {
+  localUri: string;
+  fileName: string;
+}
+
+export type OnFileReceived = (data: FileReceived) => void;
+
+export interface FileProgress extends Pick<BasePeer, "peerId"> {
+  fileName: string;
+  progress: number;
+}
+
+export type OnFileProgress = (data: FileProgress) => void;

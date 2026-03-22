@@ -122,6 +122,24 @@ public class MultipeerConnectivityModule: NSObject, NearbyConnectionModule {
         
         try self.session?.send(data, toPeers: [targetPeerId], with: .reliable)
     }
+    
+    public func sendFile(to peerId: String, fileURL: URL, resourceName: String) throws -> Void {
+        guard let targetPeerId = self.connectedPeers.first(where: {
+            $0.key == peerId
+        })?.value else {
+            throw NSError(domain: "ExpoNearbyConnections", code: 0, userInfo: [NSLocalizedDescriptionKey: "SendFile: Not found target peer."])
+        }
+        
+        guard FileManager.default.fileExists(atPath: fileURL.path) else {
+            throw NSError(domain: "ExpoNearbyConnections", code: 0, userInfo: [NSLocalizedDescriptionKey: "SendFile: File not found at path \(fileURL.path)."])
+        }
+        
+        self.session?.sendResource(at: fileURL, withName: resourceName, toPeer: targetPeerId, withCompletionHandler: { error in
+            if let error = error {
+                print("SendFile Error: \(error.localizedDescription)")
+            }
+        })
+    }
 }
 
 extension MultipeerConnectivityModule: MCNearbyServiceAdvertiserDelegate {
@@ -191,7 +209,17 @@ extension MultipeerConnectivityModule: MCSessionDelegate {
     }
     
     public func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        // TODO: Implement receive resource progress
+        let peerIdHash = String(peerID.hash)
+        
+        // Observe progress changes
+        let observation = progress.observe(\.fractionCompleted, options: [.new]) { [weak self] progress, _ in
+            DispatchQueue.main.async {
+                self?.delegate?.onFileProgress(fromPeerId: peerIdHash, resourceName: resourceName, progress: progress.fractionCompleted)
+            }
+        }
+        
+        // Store observation to prevent deallocation (keyed by resourceName)
+        objc_setAssociatedObject(progress, "observation_\(resourceName)", observation, .OBJC_ASSOCIATION_RETAIN)
     }
     
     public func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
@@ -201,7 +229,37 @@ extension MultipeerConnectivityModule: MCSessionDelegate {
     }
     
     public func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: (any Error)?) {
-        // TODO: Implement receive resource completion with error
-        print("Session Events: didFinishReceivingResourceWithName with error \(String(describing: error))")
+        let peerIdHash = String(peerID.hash)
+        
+        if let error = error {
+            print("Session Events: didFinishReceivingResource error: \(error.localizedDescription)")
+            return
+        }
+        
+        guard let localURL = localURL else {
+            print("Session Events: didFinishReceivingResource but localURL is nil")
+            return
+        }
+        
+        // Move file to a persistent location (temp files get cleaned up)
+        let documentsDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        let nearbyDir = documentsDir.appendingPathComponent("expo-nearby-received", isDirectory: true)
+        
+        do {
+            try FileManager.default.createDirectory(at: nearbyDir, withIntermediateDirectories: true)
+            
+            let destinationURL = nearbyDir.appendingPathComponent(resourceName)
+            
+            // Remove existing file if present
+            if FileManager.default.fileExists(atPath: destinationURL.path) {
+                try FileManager.default.removeItem(at: destinationURL)
+            }
+            
+            try FileManager.default.moveItem(at: localURL, to: destinationURL)
+            
+            self.delegate?.onFileReceived(fromPeerId: peerIdHash, atLocalURL: destinationURL, withName: resourceName)
+        } catch {
+            print("Session Events: Failed to move received file: \(error.localizedDescription)")
+        }
     }
 }

@@ -77,6 +77,26 @@ public class ExpoNearbyConnectionsModule: Module {
                 promise.reject(error)
             }
         }
+        
+        AsyncFunction("sendFile") { (targetPeerId: String, fileUri: String, fileName: String, promise: Promise) -> Void in
+            do {
+                // Handle both file:// URIs and plain paths
+                let url: URL
+                if fileUri.hasPrefix("file://") {
+                    guard let fileURL = URL(string: fileUri) else {
+                        throw NSError(domain: "ExpoNearbyConnections", code: 0, userInfo: [NSLocalizedDescriptionKey: "SendFile: Invalid file URI."])
+                    }
+                    url = fileURL
+                } else {
+                    url = URL(fileURLWithPath: fileUri)
+                }
+                
+                try nearbyConnection.sendFile(to: targetPeerId, fileURL: url, resourceName: fileName)
+                promise.resolve(nil)
+            } catch {
+                promise.reject(error)
+            }
+        }
     }
 }
 
@@ -122,6 +142,22 @@ extension ExpoNearbyConnectionsModule: NearbyConnectionCallbackDelegate {
         sendEvent(.ON_TEXT_RECEIVED, [
             "peerId": peerId,
             "text": text
+        ])
+    }
+    
+    func onFileReceived(fromPeerId peerId: String, atLocalURL localURL: URL, withName resourceName: String) {
+        sendEvent(.ON_FILE_RECEIVED, [
+            "peerId": peerId,
+            "localUri": localURL.absoluteString,
+            "fileName": resourceName
+        ])
+    }
+    
+    func onFileProgress(fromPeerId peerId: String, resourceName: String, progress: Double) {
+        sendEvent(.ON_FILE_PROGRESS, [
+            "peerId": peerId,
+            "fileName": resourceName,
+            "progress": progress
         ])
     }
 }

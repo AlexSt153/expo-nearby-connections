@@ -1,5 +1,10 @@
 import { Platform } from "react-native";
-import { EventNames, TextReceived } from "../types/nearby-connections.types";
+import {
+  EventNames,
+  TextReceived,
+  FileReceived,
+  FileProgress,
+} from "../types/nearby-connections.types";
 import { genericEventListenerBuilder } from "../utilities/generic-event-listener-builder";
 import { nearbyConnectionsModule } from "./nearby-connections-module";
 
@@ -32,6 +37,22 @@ export const sendText = async (
   return nearbyConnectionsModule.sendText(connectedPeerId, text);
 };
 
+export const sendFile = async (
+  connectedPeerId: string,
+  fileUri: string,
+  fileName: string
+): Promise<void> => {
+  return nearbyConnectionsModule.sendFile(connectedPeerId, fileUri, fileName);
+};
+
 export const onTextReceived = genericEventListenerBuilder<TextReceived>(
   EventNames.ON_TEXT_RECEIVED
+);
+
+export const onFileReceived = genericEventListenerBuilder<FileReceived>(
+  EventNames.ON_FILE_RECEIVED
+);
+
+export const onFileProgress = genericEventListenerBuilder<FileProgress>(
+  EventNames.ON_FILE_PROGRESS
 );

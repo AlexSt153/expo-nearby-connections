@@ -14,6 +14,8 @@ enum EventNames: String, CaseIterable {
     case ON_CONNECTED = "onConnected"
     case ON_DISCONNECTED = "onDisconnected"
     case ON_TEXT_RECEIVED = "onTextReceived"
+    case ON_FILE_RECEIVED = "onFileReceived"
+    case ON_FILE_PROGRESS = "onFileProgress"
 }
 
 let MODULE_NAME="ExpoNearbyConnectionsModule"
@@ -30,6 +32,7 @@ protocol NearbyConnectionModule {
     func rejectConnection(to peerId: String) throws -> Void
     func disconnect() -> Void
     func sendText(to peerId: String, payload text: String) throws -> Void
+    func sendFile(to peerId: String, fileURL: URL, resourceName: String) throws -> Void
 }
 
 protocol NearbyConnectionCallbackDelegate: AnyObject {
@@ -39,4 +42,6 @@ protocol NearbyConnectionCallbackDelegate: AnyObject {
     func onConnected(fromPeerId peerId: String, fromPeerName name: String) -> Void
     func onDisconnected(fromPeerId peerId: String) -> Void
     func onTextReceived(fromPeerId peerId: String, payload text: String) -> Void
+    func onFileReceived(fromPeerId peerId: String, atLocalURL localURL: URL, withName resourceName: String) -> Void
+    func onFileProgress(fromPeerId peerId: String, resourceName: String, progress: Double) -> Void
 }
