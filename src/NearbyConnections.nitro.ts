@@ -18,6 +18,8 @@ export interface NearbyConnections extends HybridObject<{ ios: 'swift'; android:
   rejectConnection(targetPeerId: string): Promise<void>
   disconnect(targetPeerId?: string): Promise<void>
   sendText(targetPeerId: string, text: string): Promise<void>
+  sendFile(targetPeerId: string, uri: string, name?: string, mimeType?: string): Promise<string>
+  cancelFileTransfer(transferId: string): Promise<void>
 
   // Event callbacks (Native → JS, direct invocation)
   onPeerFound?: (peerId: string, name: string) => void
@@ -26,4 +28,23 @@ export interface NearbyConnections extends HybridObject<{ ios: 'swift'; android:
   onConnected?: (peerId: string, name: string) => void
   onDisconnected?: (peerId: string) => void
   onTextReceived?: (peerId: string, text: string) => void
+  onFileTransferUpdate?: (
+    transferId: string,
+    peerId: string,
+    direction: string,
+    status: string,
+    bytesTransferred: number,
+    totalBytes?: number,
+    name?: string,
+    mimeType?: string,
+    error?: string,
+  ) => void
+  onFileReceived?: (
+    transferId: string,
+    peerId: string,
+    uri: string,
+    name: string,
+    mimeType: string | undefined,
+    size: number,
+  ) => void
 }

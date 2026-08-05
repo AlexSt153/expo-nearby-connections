@@ -84,7 +84,7 @@ open class HybridNearbyConnectionsSpec_cxx {
     }
   }
 
-  
+
 
   /**
    * Get the memory size of the Swift class (plus size of any other allocations)
@@ -152,7 +152,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       }()
     }
   }
-  
+
   public final var onPeerLost: bridge.std__optional_std__function_void_const_std__string_____peerId______ {
     @inline(__always)
     get {
@@ -184,7 +184,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       }()
     }
   }
-  
+
   public final var onInvitationReceived: bridge.std__optional_std__function_void_const_std__string_____peerId_____const_std__string_____name______ {
     @inline(__always)
     get {
@@ -216,7 +216,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       }()
     }
   }
-  
+
   public final var onConnected: bridge.std__optional_std__function_void_const_std__string_____peerId_____const_std__string_____name______ {
     @inline(__always)
     get {
@@ -248,7 +248,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       }()
     }
   }
-  
+
   public final var onDisconnected: bridge.std__optional_std__function_void_const_std__string_____peerId______ {
     @inline(__always)
     get {
@@ -280,7 +280,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       }()
     }
   }
-  
+
   public final var onTextReceived: bridge.std__optional_std__function_void_const_std__string_____peerId_____const_std__string_____text______ {
     @inline(__always)
     get {
@@ -313,6 +313,100 @@ open class HybridNearbyConnectionsSpec_cxx {
     }
   }
 
+  public final var onFileTransferUpdate: bridge.std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____direction_____const_std__string_____status_____double____bytesTransferred_____std__optional_double_____totalBytes_____const_std__optional_std__string______name_____const_std__optional_std__string______mimeType_____const_std__optional_std__string______error______ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____direction_____const_std__string_____status_____double____bytesTransferred_____std__optional_double_____totalBytes_____const_std__optional_std__string______name_____const_std__optional_std__string______mimeType_____const_std__optional_std__string______error______ in
+        if let __unwrappedValue = self.__implementation.onFileTransferUpdate {
+          return bridge.create_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____direction_____const_std__string_____status_____double____bytesTransferred_____std__optional_double_____totalBytes_____const_std__optional_std__string______name_____const_std__optional_std__string______mimeType_____const_std__optional_std__string______error______({ () -> bridge.Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_ in
+            let __closureWrapper = Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_(__unwrappedValue)
+            return bridge.create_Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.onFileTransferUpdate = { () -> ((_ transferId: String, _ peerId: String, _ direction: String, _ status: String, _ bytesTransferred: Double, _ totalBytes: Double?, _ name: String?, _ mimeType: String?, _ error: String?) -> Void)? in
+        if bridge.has_value_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____direction_____const_std__string_____status_____double____bytesTransferred_____std__optional_double_____totalBytes_____const_std__optional_std__string______name_____const_std__optional_std__string______mimeType_____const_std__optional_std__string______error______(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____direction_____const_std__string_____status_____double____bytesTransferred_____std__optional_double_____totalBytes_____const_std__optional_std__string______name_____const_std__optional_std__string______mimeType_____const_std__optional_std__string______error______(newValue)
+          return { () -> (String, String, String, String, Double, Double?, String?, String?, String?) -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_(__unwrapped)
+            return { (__transferId: String, __peerId: String, __direction: String, __status: String, __bytesTransferred: Double, __totalBytes: Double?, __name: String?, __mimeType: String?, __error: String?) -> Void in
+              __wrappedFunction.call(std.string(__transferId), std.string(__peerId), std.string(__direction), std.string(__status), __bytesTransferred, { () -> bridge.std__optional_double_ in
+                if let __unwrappedValue = __totalBytes {
+                  return bridge.create_std__optional_double_(__unwrappedValue)
+                } else {
+                  return .init()
+                }
+              }(), { () -> bridge.std__optional_std__string_ in
+                if let __unwrappedValue = __name {
+                  return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+                } else {
+                  return .init()
+                }
+              }(), { () -> bridge.std__optional_std__string_ in
+                if let __unwrappedValue = __mimeType {
+                  return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+                } else {
+                  return .init()
+                }
+              }(), { () -> bridge.std__optional_std__string_ in
+                if let __unwrappedValue = __error {
+                  return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+                } else {
+                  return .init()
+                }
+              }())
+            }
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+
+  public final var onFileReceived: bridge.std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____uri_____const_std__string_____name_____const_std__optional_std__string______mimeType_____double____size______ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____uri_____const_std__string_____name_____const_std__optional_std__string______mimeType_____double____size______ in
+        if let __unwrappedValue = self.__implementation.onFileReceived {
+          return bridge.create_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____uri_____const_std__string_____name_____const_std__optional_std__string______mimeType_____double____size______({ () -> bridge.Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double in
+            let __closureWrapper = Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double(__unwrappedValue)
+            return bridge.create_Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.onFileReceived = { () -> ((_ transferId: String, _ peerId: String, _ uri: String, _ name: String, _ mimeType: String?, _ size: Double) -> Void)? in
+        if bridge.has_value_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____uri_____const_std__string_____name_____const_std__optional_std__string______mimeType_____double____size______(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____uri_____const_std__string_____name_____const_std__optional_std__string______mimeType_____double____size______(newValue)
+          return { () -> (String, String, String, String, String?, Double) -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double(__unwrapped)
+            return { (__transferId: String, __peerId: String, __uri: String, __name: String, __mimeType: String?, __size: Double) -> Void in
+              __wrappedFunction.call(std.string(__transferId), std.string(__peerId), std.string(__uri), std.string(__name), { () -> bridge.std__optional_std__string_ in
+                if let __unwrappedValue = __mimeType {
+                  return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+                } else {
+                  return .init()
+                }
+              }(), __size)
+            }
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+
   // Methods
   @inline(__always)
   public final func isPlayServicesAvailable() -> bridge.Result_std__shared_ptr_Promise_bool___ {
@@ -332,7 +426,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_bool___(__exceptionPtr)
     }
   }
-  
+
   @inline(__always)
   public final func startAdvertise(name: std.string, strategy: bridge.std__optional_Strategy_) -> bridge.Result_std__shared_ptr_Promise_std__string___ {
     do {
@@ -351,7 +445,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_std__string___(__exceptionPtr)
     }
   }
-  
+
   @inline(__always)
   public final func stopAdvertise() -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
@@ -370,7 +464,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
     }
   }
-  
+
   @inline(__always)
   public final func startDiscovery(name: std.string, strategy: bridge.std__optional_Strategy_) -> bridge.Result_std__shared_ptr_Promise_std__string___ {
     do {
@@ -389,7 +483,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_std__string___(__exceptionPtr)
     }
   }
-  
+
   @inline(__always)
   public final func stopDiscovery() -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
@@ -408,7 +502,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
     }
   }
-  
+
   @inline(__always)
   public final func requestConnection(advertisePeerId: std.string) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
@@ -427,7 +521,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
     }
   }
-  
+
   @inline(__always)
   public final func acceptConnection(targetPeerId: std.string) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
@@ -446,7 +540,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
     }
   }
-  
+
   @inline(__always)
   public final func rejectConnection(targetPeerId: std.string) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
@@ -465,7 +559,7 @@ open class HybridNearbyConnectionsSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
     }
   }
-  
+
   @inline(__always)
   public final func disconnect(targetPeerId: bridge.std__optional_std__string_) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
@@ -491,11 +585,63 @@ open class HybridNearbyConnectionsSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
     }
   }
-  
+
   @inline(__always)
   public final func sendText(targetPeerId: std.string, text: std.string) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
       let __result = try self.__implementation.sendText(targetPeerId: String(targetPeerId), text: String(text))
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_void__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve() })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
+    }
+  }
+
+  @inline(__always)
+  public final func sendFile(targetPeerId: std.string, uri: std.string, name: bridge.std__optional_std__string_, mimeType: bridge.std__optional_std__string_) -> bridge.Result_std__shared_ptr_Promise_std__string___ {
+    do {
+      let __result = try self.__implementation.sendFile(targetPeerId: String(targetPeerId), uri: String(uri), name: { () -> String? in
+        if bridge.has_value_std__optional_std__string_(name) {
+          let __unwrapped = bridge.get_std__optional_std__string_(name)
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }(), mimeType: { () -> String? in
+        if bridge.has_value_std__optional_std__string_(mimeType) {
+          let __unwrapped = bridge.get_std__optional_std__string_(mimeType)
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }())
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__string__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_std__string__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__string__(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve(std.string(__result)) })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_std__string___(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_std__shared_ptr_Promise_std__string___(__exceptionPtr)
+    }
+  }
+
+  @inline(__always)
+  public final func cancelFileTransfer(transferId: std.string) -> bridge.Result_std__shared_ptr_Promise_void___ {
+    do {
+      let __result = try self.__implementation.cancelFileTransfer(transferId: String(transferId))
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
         let __promise = bridge.create_std__shared_ptr_Promise_void__()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)

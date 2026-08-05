@@ -12,6 +12,25 @@ public class HybridNearbyConnections: HybridNearbyConnectionsSpec_base, HybridNe
     public var onConnected: ((_ peerId: String, _ name: String) -> Void)?
     public var onDisconnected: ((_ peerId: String) -> Void)?
     public var onTextReceived: ((_ peerId: String, _ text: String) -> Void)?
+    public var onFileTransferUpdate: ((
+        _ transferId: String,
+        _ peerId: String,
+        _ direction: String,
+        _ status: String,
+        _ bytesTransferred: Double,
+        _ totalBytes: Double?,
+        _ name: String?,
+        _ mimeType: String?,
+        _ error: String?
+    ) -> Void)?
+    public var onFileReceived: ((
+        _ transferId: String,
+        _ peerId: String,
+        _ uri: String,
+        _ name: String,
+        _ mimeType: String?,
+        _ size: Double
+    ) -> Void)?
 
     public override init() {
         super.init()
@@ -71,6 +90,26 @@ public class HybridNearbyConnections: HybridNearbyConnectionsSpec_base, HybridNe
         try multipeerModule.sendText(to: targetPeerId, payload: text)
         return Promise.resolved()
     }
+
+    public func sendFile(
+        targetPeerId: String,
+        uri: String,
+        name: String?,
+        mimeType: String?
+    ) throws -> Promise<String> {
+        let transferId = try multipeerModule.sendFile(
+            to: targetPeerId,
+            uri: uri,
+            name: name,
+            mimeType: mimeType
+        )
+        return Promise.resolved(withResult: transferId)
+    }
+
+    public func cancelFileTransfer(transferId: String) throws -> Promise<Void> {
+        try multipeerModule.cancelFileTransfer(transferId)
+        return Promise.resolved()
+    }
 }
 
 // MARK: - NearbyConnectionCallbackDelegate
@@ -98,5 +137,47 @@ extension HybridNearbyConnections: NearbyConnectionCallbackDelegate {
 
     func onTextReceived(fromPeerId peerId: String, payload text: String) {
         self.onTextReceived?(peerId, text)
+    }
+
+    func onFileTransferUpdate(
+        transferId: String,
+        peerId: String,
+        direction: String,
+        status: String,
+        bytesTransferred: Int64,
+        totalBytes: Int64?,
+        name: String?,
+        mimeType: String?,
+        error: String?
+    ) {
+        self.onFileTransferUpdate?(
+            transferId,
+            peerId,
+            direction,
+            status,
+            Double(bytesTransferred),
+            totalBytes.map(Double.init),
+            name,
+            mimeType,
+            error
+        )
+    }
+
+    func onFileReceived(
+        transferId: String,
+        peerId: String,
+        uri: String,
+        name: String,
+        mimeType: String?,
+        size: Int64
+    ) {
+        self.onFileReceived?(
+            transferId,
+            peerId,
+            uri,
+            name,
+            mimeType,
+            Double(size)
+        )
     }
 }

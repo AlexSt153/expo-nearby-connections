@@ -16,6 +16,8 @@ namespace margelo::nitro::nearbyconnections { enum class Strategy; }
 #include "JFunc_void_std__string_std__string.hpp"
 #include <NitroModules/JNICallable.hpp>
 #include "JFunc_void_std__string.hpp"
+#include "JFunc_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_.hpp"
+#include "JFunc_void_std__string_std__string_std__string_std__string_std__optional_std__string__double.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
 #include <NitroModules/JUnit.hpp>
@@ -153,6 +155,40 @@ namespace margelo::nitro::nearbyconnections {
   void JHybridNearbyConnectionsSpec::setOnTextReceived(const std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* text */)>>& onTextReceived) {
     static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_std__string_std__string::javaobject> /* onTextReceived */)>("setOnTextReceived_cxx");
     method(_javaPart, onTextReceived.has_value() ? JFunc_void_std__string_std__string_cxx::fromCpp(onTextReceived.value()) : nullptr);
+  }
+  std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>> JHybridNearbyConnectionsSpec::getOnFileTransferUpdate() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_::javaobject>()>("getOnFileTransferUpdate_cxx");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional([&]() -> std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)> {
+      if (__result->isInstanceOf(JFunc_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string__cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string__cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return JNICallable<JFunc_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_, void(std::string, std::string, std::string, std::string, double, std::optional<double>, std::optional<std::string>, std::optional<std::string>, std::optional<std::string>)>(std::move(__resultRef));
+      }
+    }()) : std::nullopt;
+  }
+  void JHybridNearbyConnectionsSpec::setOnFileTransferUpdate(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>& onFileTransferUpdate) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_::javaobject> /* onFileTransferUpdate */)>("setOnFileTransferUpdate_cxx");
+    method(_javaPart, onFileTransferUpdate.has_value() ? JFunc_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string__cxx::fromCpp(onFileTransferUpdate.value()) : nullptr);
+  }
+  std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>> JHybridNearbyConnectionsSpec::getOnFileReceived() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void_std__string_std__string_std__string_std__string_std__optional_std__string__double::javaobject>()>("getOnFileReceived_cxx");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional([&]() -> std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)> {
+      if (__result->isInstanceOf(JFunc_void_std__string_std__string_std__string_std__string_std__optional_std__string__double_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_std__string_std__string_std__string_std__string_std__optional_std__string__double_cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return JNICallable<JFunc_void_std__string_std__string_std__string_std__string_std__optional_std__string__double, void(std::string, std::string, std::string, std::string, std::optional<std::string>, double)>(std::move(__resultRef));
+      }
+    }()) : std::nullopt;
+  }
+  void JHybridNearbyConnectionsSpec::setOnFileReceived(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>& onFileReceived) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_std__string_std__string_std__string_std__string_std__optional_std__string__double::javaobject> /* onFileReceived */)>("setOnFileReceived_cxx");
+    method(_javaPart, onFileReceived.has_value() ? JFunc_void_std__string_std__string_std__string_std__string_std__optional_std__string__double_cxx::fromCpp(onFileReceived.value()) : nullptr);
   }
 
   // Methods
@@ -297,6 +333,37 @@ namespace margelo::nitro::nearbyconnections {
   std::shared_ptr<Promise<void>> JHybridNearbyConnectionsSpec::sendText(const std::string& targetPeerId, const std::string& text) {
     static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* targetPeerId */, jni::alias_ref<jni::JString> /* text */)>("sendText");
     auto __result = method(_javaPart, jni::make_jstring(targetPeerId), jni::make_jstring(text));
+    return [&]() {
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
+  std::shared_ptr<Promise<std::string>> JHybridNearbyConnectionsSpec::sendFile(const std::string& targetPeerId, const std::string& uri, const std::optional<std::string>& name, const std::optional<std::string>& mimeType) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* targetPeerId */, jni::alias_ref<jni::JString> /* uri */, jni::alias_ref<jni::JString> /* name */, jni::alias_ref<jni::JString> /* mimeType */)>("sendFile");
+    auto __result = method(_javaPart, jni::make_jstring(targetPeerId), jni::make_jstring(uri), name.has_value() ? jni::make_jstring(name.value()) : nullptr, mimeType.has_value() ? jni::make_jstring(mimeType.value()) : nullptr);
+    return [&]() {
+      auto __promise = Promise<std::string>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<jni::JString>(__boxedResult);
+        __promise->resolve(__result->toStdString());
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
+  std::shared_ptr<Promise<void>> JHybridNearbyConnectionsSpec::cancelFileTransfer(const std::string& transferId) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* transferId */)>("cancelFileTransfer");
+    auto __result = method(_javaPart, jni::make_jstring(transferId));
     return [&]() {
       auto __promise = Promise<void>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {

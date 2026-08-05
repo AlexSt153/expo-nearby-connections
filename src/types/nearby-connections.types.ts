@@ -30,3 +30,40 @@ export interface TextReceived extends Pick<BasePeer, "peerId"> {
 }
 
 export type OnTextReceived = (data: TextReceived) => void;
+
+export interface FileSource {
+  uri: string;
+  name?: string;
+  mimeType?: string;
+}
+
+export type FileTransferDirection = "incoming" | "outgoing";
+
+export type FileTransferStatus =
+  | "in_progress"
+  | "completed"
+  | "cancelled"
+  | "failed";
+
+export interface FileTransferUpdate extends Pick<BasePeer, "peerId"> {
+  transferId: string;
+  direction: FileTransferDirection;
+  status: FileTransferStatus;
+  bytesTransferred: number;
+  totalBytes?: number;
+  name?: string;
+  mimeType?: string;
+  error?: string;
+}
+
+export type OnFileTransferUpdate = (data: FileTransferUpdate) => void;
+
+export interface FileReceived extends Pick<BasePeer, "peerId"> {
+  transferId: string;
+  uri: string;
+  name: string;
+  mimeType?: string;
+  size: number;
+}
+
+export type OnFileReceived = (data: FileReceived) => void;

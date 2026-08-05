@@ -4,6 +4,10 @@ import { createEventHandler } from "../utilities/create-event-handler";
 import type {
   Connected,
   Disconnected,
+  FileReceived,
+  FileTransferDirection,
+  FileTransferStatus,
+  FileTransferUpdate,
   InvitationReceived,
   PeerFound,
   PeerLost,
@@ -21,6 +25,19 @@ export const invitationReceivedHandler = createEventHandler<InvitationReceived>(
 export const connectedHandler = createEventHandler<Connected>();
 export const disconnectedHandler = createEventHandler<Disconnected>();
 export const textReceivedHandler = createEventHandler<TextReceived>();
+export const fileTransferUpdateHandler =
+  createEventHandler<FileTransferUpdate>();
+export const fileReceivedHandler = createEventHandler<FileReceived>();
+
+const isFileTransferDirection = (
+  value: string,
+): value is FileTransferDirection => value === "incoming" || value === "outgoing";
+
+const isFileTransferStatus = (value: string): value is FileTransferStatus =>
+  value === "in_progress" ||
+  value === "completed" ||
+  value === "cancelled" ||
+  value === "failed";
 
 nearbyConnectionsModule.onPeerFound = (peerId, name) =>
   peerFoundHandler.emit({ peerId, name });
@@ -34,3 +51,49 @@ nearbyConnectionsModule.onDisconnected = (peerId) =>
   disconnectedHandler.emit({ peerId });
 nearbyConnectionsModule.onTextReceived = (peerId, text) =>
   textReceivedHandler.emit({ peerId, text });
+nearbyConnectionsModule.onFileTransferUpdate = (
+  transferId,
+  peerId,
+  direction,
+  status,
+  bytesTransferred,
+  totalBytes,
+  name,
+  mimeType,
+  error,
+) => {
+  if (!isFileTransferDirection(direction) || !isFileTransferStatus(status)) {
+    console.warn(
+      `Ignoring invalid native file transfer update: ${direction}/${status}`,
+    );
+    return;
+  }
+
+  fileTransferUpdateHandler.emit({
+    transferId,
+    peerId,
+    direction,
+    status,
+    bytesTransferred,
+    totalBytes,
+    name,
+    mimeType,
+    error,
+  });
+};
+nearbyConnectionsModule.onFileReceived = (
+  transferId,
+  peerId,
+  uri,
+  name,
+  mimeType,
+  size,
+) =>
+  fileReceivedHandler.emit({
+    transferId,
+    peerId,
+    uri,
+    name,
+    mimeType,
+    size,
+  });

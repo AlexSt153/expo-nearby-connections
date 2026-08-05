@@ -109,6 +109,20 @@ namespace margelo::nitro::nearbyconnections {
     inline void setOnTextReceived(const std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* text */)>>& onTextReceived) noexcept override {
       _swiftPart.setOnTextReceived(onTextReceived);
     }
+    inline std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>> getOnFileTransferUpdate() noexcept override {
+      auto __result = _swiftPart.getOnFileTransferUpdate();
+      return __result;
+    }
+    inline void setOnFileTransferUpdate(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>& onFileTransferUpdate) noexcept override {
+      _swiftPart.setOnFileTransferUpdate(onFileTransferUpdate);
+    }
+    inline std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>> getOnFileReceived() noexcept override {
+      auto __result = _swiftPart.getOnFileReceived();
+      return __result;
+    }
+    inline void setOnFileReceived(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>& onFileReceived) noexcept override {
+      _swiftPart.setOnFileReceived(onFileReceived);
+    }
 
   public:
     // Methods
@@ -186,6 +200,22 @@ namespace margelo::nitro::nearbyconnections {
     }
     inline std::shared_ptr<Promise<void>> sendText(const std::string& targetPeerId, const std::string& text) override {
       auto __result = _swiftPart.sendText(targetPeerId, text);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::string>> sendFile(const std::string& targetPeerId, const std::string& uri, const std::optional<std::string>& name, const std::optional<std::string>& mimeType) override {
+      auto __result = _swiftPart.sendFile(targetPeerId, uri, name, mimeType);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<void>> cancelFileTransfer(const std::string& transferId) override {
+      auto __result = _swiftPart.cancelFileTransfer(transferId);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
