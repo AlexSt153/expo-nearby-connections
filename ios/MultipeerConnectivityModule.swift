@@ -799,7 +799,9 @@ public class MultipeerConnectivityModule: NSObject {
             }
 
             self.fileQueue.asyncAfter(deadline: .now() + Self.callbackDrainGraceSeconds) {
-                self.recentIncomingTerminals.removeAll { $0.peerId == peerId }
+                self.recentIncomingTerminals = self.recentIncomingTerminals.filter {
+                    $0.peerId != peerId
+                }
             }
         }
     }
