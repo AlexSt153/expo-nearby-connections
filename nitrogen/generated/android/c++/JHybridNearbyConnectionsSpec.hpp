@@ -62,6 +62,10 @@ namespace margelo::nitro::nearbyconnections {
     void setOnDisconnected(const std::optional<std::function<void(const std::string& /* peerId */)>>& onDisconnected) override;
     std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* text */)>> getOnTextReceived() override;
     void setOnTextReceived(const std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* text */)>>& onTextReceived) override;
+    std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>> getOnFileTransferUpdate() override;
+    void setOnFileTransferUpdate(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>& onFileTransferUpdate) override;
+    std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>> getOnFileReceived() override;
+    void setOnFileReceived(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>& onFileReceived) override;
 
   public:
     // Methods
@@ -75,6 +79,8 @@ namespace margelo::nitro::nearbyconnections {
     std::shared_ptr<Promise<void>> rejectConnection(const std::string& targetPeerId) override;
     std::shared_ptr<Promise<void>> disconnect(const std::optional<std::string>& targetPeerId) override;
     std::shared_ptr<Promise<void>> sendText(const std::string& targetPeerId, const std::string& text) override;
+    std::shared_ptr<Promise<std::string>> sendFile(const std::string& targetPeerId, const std::string& uri, const std::optional<std::string>& name, const std::optional<std::string>& mimeType) override;
+    std::shared_ptr<Promise<void>> cancelFileTransfer(const std::string& transferId) override;
 
   private:
     jni::global_ref<JHybridNearbyConnectionsSpec::JavaPart> _javaPart;

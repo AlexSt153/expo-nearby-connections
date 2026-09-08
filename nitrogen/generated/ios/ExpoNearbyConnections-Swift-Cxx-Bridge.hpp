@@ -46,7 +46,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline PromiseHolder<bool> wrap_std__shared_ptr_Promise_bool__(std::shared_ptr<Promise<bool>> promise) noexcept {
     return PromiseHolder<bool>(std::move(promise));
   }
-  
+
   // pragma MARK: std::function<void(bool /* result */)>
   /**
    * Specialized version of `std::function<void(bool)>`.
@@ -68,7 +68,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline Func_void_bool_Wrapper wrap_Func_void_bool(Func_void_bool value) noexcept {
     return Func_void_bool_Wrapper(std::move(value));
   }
-  
+
   // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
   /**
    * Specialized version of `std::function<void(const std::exception_ptr&)>`.
@@ -90,7 +90,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline Func_void_std__exception_ptr_Wrapper wrap_Func_void_std__exception_ptr(Func_void_std__exception_ptr value) noexcept {
     return Func_void_std__exception_ptr_Wrapper(std::move(value));
   }
-  
+
   // pragma MARK: std::shared_ptr<Promise<std::string>>
   /**
    * Specialized version of `std::shared_ptr<Promise<std::string>>`.
@@ -102,7 +102,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline PromiseHolder<std::string> wrap_std__shared_ptr_Promise_std__string__(std::shared_ptr<Promise<std::string>> promise) noexcept {
     return PromiseHolder<std::string>(std::move(promise));
   }
-  
+
   // pragma MARK: std::function<void(const std::string& /* result */)>
   /**
    * Specialized version of `std::function<void(const std::string&)>`.
@@ -124,7 +124,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline Func_void_std__string_Wrapper wrap_Func_void_std__string(Func_void_std__string value) noexcept {
     return Func_void_std__string_Wrapper(std::move(value));
   }
-  
+
   // pragma MARK: std::optional<Strategy>
   /**
    * Specialized version of `std::optional<Strategy>`.
@@ -139,7 +139,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline Strategy get_std__optional_Strategy_(const std::optional<Strategy>& optional) noexcept {
     return optional.value();
   }
-  
+
   // pragma MARK: std::shared_ptr<Promise<void>>
   /**
    * Specialized version of `std::shared_ptr<Promise<void>>`.
@@ -151,7 +151,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline PromiseHolder<void> wrap_std__shared_ptr_Promise_void__(std::shared_ptr<Promise<void>> promise) noexcept {
     return PromiseHolder<void>(std::move(promise));
   }
-  
+
   // pragma MARK: std::function<void()>
   /**
    * Specialized version of `std::function<void()>`.
@@ -173,7 +173,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline Func_void_Wrapper wrap_Func_void(Func_void value) noexcept {
     return Func_void_Wrapper(std::move(value));
   }
-  
+
   // pragma MARK: std::optional<std::string>
   /**
    * Specialized version of `std::optional<std::string>`.
@@ -188,7 +188,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline std::string get_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
     return optional.value();
   }
-  
+
   // pragma MARK: std::function<void(const std::string& /* peerId */, const std::string& /* name */)>
   /**
    * Specialized version of `std::function<void(const std::string&, const std::string&)>`.
@@ -210,7 +210,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline Func_void_std__string_std__string_Wrapper wrap_Func_void_std__string_std__string(Func_void_std__string_std__string value) noexcept {
     return Func_void_std__string_std__string_Wrapper(std::move(value));
   }
-  
+
   // pragma MARK: std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* name */)>>
   /**
    * Specialized version of `std::optional<std::function<void(const std::string& / * peerId * /, const std::string& / * name * /)>>`.
@@ -225,7 +225,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline std::function<void(const std::string& /* peerId */, const std::string& /* name */)> get_std__optional_std__function_void_const_std__string_____peerId_____const_std__string_____name______(const std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* name */)>>& optional) noexcept {
     return optional.value();
   }
-  
+
   // pragma MARK: std::optional<std::function<void(const std::string& /* peerId */)>>
   /**
    * Specialized version of `std::optional<std::function<void(const std::string& / * peerId * /)>>`.
@@ -240,7 +240,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline std::function<void(const std::string& /* peerId */)> get_std__optional_std__function_void_const_std__string_____peerId______(const std::optional<std::function<void(const std::string& /* peerId */)>>& optional) noexcept {
     return optional.value();
   }
-  
+
   // pragma MARK: std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* text */)>>
   /**
    * Specialized version of `std::optional<std::function<void(const std::string& / * peerId * /, const std::string& / * text * /)>>`.
@@ -255,7 +255,96 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline std::function<void(const std::string& /* peerId */, const std::string& /* text */)> get_std__optional_std__function_void_const_std__string_____peerId_____const_std__string_____text______(const std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* text */)>>& optional) noexcept {
     return optional.value();
   }
-  
+
+  // pragma MARK: std::optional<double>
+  /**
+   * Specialized version of `std::optional<double>`.
+   */
+  using std__optional_double_ = std::optional<double>;
+  inline std::optional<double> create_std__optional_double_(const double& value) noexcept {
+    return std::optional<double>(value);
+  }
+  inline bool has_value_std__optional_double_(const std::optional<double>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline double get_std__optional_double_(const std::optional<double>& optional) noexcept {
+    return optional.value();
+  }
+
+  // pragma MARK: std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>
+  /**
+   * Specialized version of `std::function<void(const std::string&, const std::string&, const std::string&, const std::string&, double, std::optional<double>, const std::optional<std::string>&, const std::optional<std::string>&, const std::optional<std::string>&)>`.
+   */
+  using Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_ = std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::string& / * transferId * /, const std::string& / * peerId * /, const std::string& / * direction * /, const std::string& / * status * /, double / * bytesTransferred * /, std::optional<double> / * totalBytes * /, const std::optional<std::string>& / * name * /, const std::optional<std::string>& / * mimeType * /, const std::optional<std::string>& / * error * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string__Wrapper final {
+  public:
+    explicit Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string__Wrapper(std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>(std::move(func))) {}
+    inline void call(std::string transferId, std::string peerId, std::string direction, std::string status, double bytesTransferred, std::optional<double> totalBytes, std::optional<std::string> name, std::optional<std::string> mimeType, std::optional<std::string> error) const noexcept {
+      _function->operator()(transferId, peerId, direction, status, bytesTransferred, totalBytes, name, mimeType, error);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_ create_Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string__Wrapper wrap_Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_(Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_ value) noexcept {
+    return Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string__Wrapper(std::move(value));
+  }
+
+  // pragma MARK: std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(const std::string& / * transferId * /, const std::string& / * peerId * /, const std::string& / * direction * /, const std::string& / * status * /, double / * bytesTransferred * /, std::optional<double> / * totalBytes * /, const std::optional<std::string>& / * name * /, const std::optional<std::string>& / * mimeType * /, const std::optional<std::string>& / * error * /)>>`.
+   */
+  using std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____direction_____const_std__string_____status_____double____bytesTransferred_____std__optional_double_____totalBytes_____const_std__optional_std__string______name_____const_std__optional_std__string______mimeType_____const_std__optional_std__string______error______ = std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>;
+  inline std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>> create_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____direction_____const_std__string_____status_____double____bytesTransferred_____std__optional_double_____totalBytes_____const_std__optional_std__string______name_____const_std__optional_std__string______mimeType_____const_std__optional_std__string______error______(const std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>& value) noexcept {
+    return std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____direction_____const_std__string_____status_____double____bytesTransferred_____std__optional_double_____totalBytes_____const_std__optional_std__string______name_____const_std__optional_std__string______mimeType_____const_std__optional_std__string______error______(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)> get_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____direction_____const_std__string_____status_____double____bytesTransferred_____std__optional_double_____totalBytes_____const_std__optional_std__string______name_____const_std__optional_std__string______mimeType_____const_std__optional_std__string______error______(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>& optional) noexcept {
+    return optional.value();
+  }
+
+  // pragma MARK: std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>
+  /**
+   * Specialized version of `std::function<void(const std::string&, const std::string&, const std::string&, const std::string&, const std::optional<std::string>&, double)>`.
+   */
+  using Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double = std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::string& / * transferId * /, const std::string& / * peerId * /, const std::string& / * uri * /, const std::string& / * name * /, const std::optional<std::string>& / * mimeType * /, double / * size * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double_Wrapper final {
+  public:
+    explicit Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double_Wrapper(std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>(std::move(func))) {}
+    inline void call(std::string transferId, std::string peerId, std::string uri, std::string name, std::optional<std::string> mimeType, double size) const noexcept {
+      _function->operator()(transferId, peerId, uri, name, mimeType, size);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double create_Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double_Wrapper wrap_Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double(Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double value) noexcept {
+    return Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double_Wrapper(std::move(value));
+  }
+
+  // pragma MARK: std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(const std::string& / * transferId * /, const std::string& / * peerId * /, const std::string& / * uri * /, const std::string& / * name * /, const std::optional<std::string>& / * mimeType * /, double / * size * /)>>`.
+   */
+  using std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____uri_____const_std__string_____name_____const_std__optional_std__string______mimeType_____double____size______ = std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>;
+  inline std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>> create_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____uri_____const_std__string_____name_____const_std__optional_std__string______mimeType_____double____size______(const std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>& value) noexcept {
+    return std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____uri_____const_std__string_____name_____const_std__optional_std__string______mimeType_____double____size______(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)> get_std__optional_std__function_void_const_std__string_____transferId_____const_std__string_____peerId_____const_std__string_____uri_____const_std__string_____name_____const_std__optional_std__string______mimeType_____double____size______(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>& optional) noexcept {
+    return optional.value();
+  }
+
   // pragma MARK: std::shared_ptr<HybridNearbyConnectionsSpec>
   /**
    * Specialized version of `std::shared_ptr<HybridNearbyConnectionsSpec>`.
@@ -263,11 +352,11 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   using std__shared_ptr_HybridNearbyConnectionsSpec_ = std::shared_ptr<HybridNearbyConnectionsSpec>;
   std::shared_ptr<HybridNearbyConnectionsSpec> create_std__shared_ptr_HybridNearbyConnectionsSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
   void* NON_NULL get_std__shared_ptr_HybridNearbyConnectionsSpec_(std__shared_ptr_HybridNearbyConnectionsSpec_ cppType);
-  
+
   // pragma MARK: std::weak_ptr<HybridNearbyConnectionsSpec>
   using std__weak_ptr_HybridNearbyConnectionsSpec_ = std::weak_ptr<HybridNearbyConnectionsSpec>;
   inline std__weak_ptr_HybridNearbyConnectionsSpec_ weakify_std__shared_ptr_HybridNearbyConnectionsSpec_(const std::shared_ptr<HybridNearbyConnectionsSpec>& strong) noexcept { return strong; }
-  
+
   // pragma MARK: Result<std::shared_ptr<Promise<bool>>>
   using Result_std__shared_ptr_Promise_bool___ = Result<std::shared_ptr<Promise<bool>>>;
   inline Result_std__shared_ptr_Promise_bool___ create_Result_std__shared_ptr_Promise_bool___(const std::shared_ptr<Promise<bool>>& value) noexcept {
@@ -276,7 +365,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline Result_std__shared_ptr_Promise_bool___ create_Result_std__shared_ptr_Promise_bool___(const std::exception_ptr& error) noexcept {
     return Result<std::shared_ptr<Promise<bool>>>::withError(error);
   }
-  
+
   // pragma MARK: Result<std::shared_ptr<Promise<std::string>>>
   using Result_std__shared_ptr_Promise_std__string___ = Result<std::shared_ptr<Promise<std::string>>>;
   inline Result_std__shared_ptr_Promise_std__string___ create_Result_std__shared_ptr_Promise_std__string___(const std::shared_ptr<Promise<std::string>>& value) noexcept {
@@ -285,7 +374,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
   inline Result_std__shared_ptr_Promise_std__string___ create_Result_std__shared_ptr_Promise_std__string___(const std::exception_ptr& error) noexcept {
     return Result<std::shared_ptr<Promise<std::string>>>::withError(error);
   }
-  
+
   // pragma MARK: Result<std::shared_ptr<Promise<void>>>
   using Result_std__shared_ptr_Promise_void___ = Result<std::shared_ptr<Promise<void>>>;
   inline Result_std__shared_ptr_Promise_void___ create_Result_std__shared_ptr_Promise_void___(const std::shared_ptr<Promise<void>>& value) noexcept {

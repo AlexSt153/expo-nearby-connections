@@ -216,6 +216,79 @@ import { sendText } from "expo-nearby-connections";
 await sendText(peerId, "Hello!");
 ```
 
+### File transfer
+
+Files are transferred by the native platform APIs and are never copied through
+JavaScript as Base64 data. File transfer requires compatible versions of this
+library on both peers.
+
+#### `sendFile(targetPeerId, file)`
+
+Schedules a local file for transfer and resolves with a transfer ID. Resolution
+means that the native transport accepted the transfer; listen for transfer
+updates to determine when delivery completes.
+
+```ts
+import { sendFile } from "expo-nearby-connections";
+
+const transferId = await sendFile(peerId, {
+  uri: document.uri,
+  name: document.name,
+  mimeType: document.mimeType,
+});
+```
+
+Android accepts `file://` and `content://` URIs. iOS accepts local `file://`
+URIs.
+
+#### `cancelFileTransfer(transferId)`
+
+Cancels an active incoming or outgoing transfer.
+
+```ts
+import { cancelFileTransfer } from "expo-nearby-connections";
+
+await cancelFileTransfer(transferId);
+```
+
+#### `onFileTransferUpdate(callback)`
+
+Reports throttled progress and the terminal state for incoming and outgoing
+transfers.
+
+```ts
+import { onFileTransferUpdate } from "expo-nearby-connections";
+
+const unsubscribe = onFileTransferUpdate((transfer) => {
+  console.log(
+    transfer.transferId,
+    transfer.direction,
+    transfer.status,
+    transfer.bytesTransferred,
+    transfer.totalBytes,
+  );
+});
+```
+
+Transfer status is one of `in_progress`, `completed`, `cancelled`, or `failed`.
+
+#### `onFileReceived(callback)`
+
+Fires after an incoming file has been moved into the application's cache and
+is ready to read.
+
+```ts
+import { onFileReceived } from "expo-nearby-connections";
+
+const unsubscribe = onFileReceived((file) => {
+  console.log("Received", file.name, "at", file.uri);
+});
+```
+
+Received files are stored below the app's `ExpoNearbyConnections` cache
+directory. Cache files can be removed by the operating system; copy the file to
+permanent application storage if it must be retained.
+
 ### Events
 
 All event listeners return an `Unsubscribe` function. Call it to remove the listener.
@@ -379,6 +452,10 @@ pnpm ios
 # Android
 pnpm android
 ```
+
+Native file transfer must also be exercised on physical devices. Follow the
+[file transfer device test plan](./docs/file-transfer-device-test-plan.md) for
+the Android and iOS acceptance matrix.
 
 ## Contributing
 

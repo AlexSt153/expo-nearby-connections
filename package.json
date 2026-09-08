@@ -18,6 +18,7 @@
     "nitrogen/generated",
     "build",
     "plugin/build",
+    "docs/file-transfer-device-test-plan.md",
     "src",
     "app.plugin.js",
     "expo-module.config.json",

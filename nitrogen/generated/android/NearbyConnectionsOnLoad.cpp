@@ -18,6 +18,8 @@
 #include "JHybridNearbyConnectionsSpec.hpp"
 #include "JFunc_void_std__string_std__string.hpp"
 #include "JFunc_void_std__string.hpp"
+#include "JFunc_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_.hpp"
+#include "JFunc_void_std__string_std__string_std__string_std__string_std__optional_std__string__double.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::nearbyconnections {
@@ -45,6 +47,8 @@ void registerAllNatives() {
   margelo::nitro::nearbyconnections::JHybridNearbyConnectionsSpec::CxxPart::registerNatives();
   margelo::nitro::nearbyconnections::JFunc_void_std__string_std__string_cxx::registerNatives();
   margelo::nitro::nearbyconnections::JFunc_void_std__string_cxx::registerNatives();
+  margelo::nitro::nearbyconnections::JFunc_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string__cxx::registerNatives();
+  margelo::nitro::nearbyconnections::JFunc_void_std__string_std__string_std__string_std__string_std__optional_std__string__double_cxx::registerNatives();
 
   // Register Nitro Hybrid Objects
   HybridObjectRegistry::registerHybridObjectConstructor(

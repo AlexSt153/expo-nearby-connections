@@ -27,7 +27,7 @@ import com.margelo.nitro.core.HybridObject
 abstract class HybridNearbyConnectionsSpec: HybridObject() {
   // Properties
   abstract var onPeerFound: ((peerId: String, name: String) -> Unit)?
-  
+
   private var onPeerFound_cxx: Func_void_std__string_std__string?
     @Keep
     @DoNotStrip
@@ -39,9 +39,9 @@ abstract class HybridNearbyConnectionsSpec: HybridObject() {
     set(value) {
       onPeerFound = value?.let { it }
     }
-  
+
   abstract var onPeerLost: ((peerId: String) -> Unit)?
-  
+
   private var onPeerLost_cxx: Func_void_std__string?
     @Keep
     @DoNotStrip
@@ -53,9 +53,9 @@ abstract class HybridNearbyConnectionsSpec: HybridObject() {
     set(value) {
       onPeerLost = value?.let { it }
     }
-  
+
   abstract var onInvitationReceived: ((peerId: String, name: String) -> Unit)?
-  
+
   private var onInvitationReceived_cxx: Func_void_std__string_std__string?
     @Keep
     @DoNotStrip
@@ -67,9 +67,9 @@ abstract class HybridNearbyConnectionsSpec: HybridObject() {
     set(value) {
       onInvitationReceived = value?.let { it }
     }
-  
+
   abstract var onConnected: ((peerId: String, name: String) -> Unit)?
-  
+
   private var onConnected_cxx: Func_void_std__string_std__string?
     @Keep
     @DoNotStrip
@@ -81,9 +81,9 @@ abstract class HybridNearbyConnectionsSpec: HybridObject() {
     set(value) {
       onConnected = value?.let { it }
     }
-  
+
   abstract var onDisconnected: ((peerId: String) -> Unit)?
-  
+
   private var onDisconnected_cxx: Func_void_std__string?
     @Keep
     @DoNotStrip
@@ -95,9 +95,9 @@ abstract class HybridNearbyConnectionsSpec: HybridObject() {
     set(value) {
       onDisconnected = value?.let { it }
     }
-  
+
   abstract var onTextReceived: ((peerId: String, text: String) -> Unit)?
-  
+
   private var onTextReceived_cxx: Func_void_std__string_std__string?
     @Keep
     @DoNotStrip
@@ -110,46 +110,82 @@ abstract class HybridNearbyConnectionsSpec: HybridObject() {
       onTextReceived = value?.let { it }
     }
 
+  abstract var onFileTransferUpdate: ((transferId: String, peerId: String, direction: String, status: String, bytesTransferred: Double, totalBytes: Double?, name: String?, mimeType: String?, error: String?) -> Unit)?
+
+  private var onFileTransferUpdate_cxx: Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_?
+    @Keep
+    @DoNotStrip
+    get() {
+      return onFileTransferUpdate?.let { Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string__java(it) }
+    }
+    @Keep
+    @DoNotStrip
+    set(value) {
+      onFileTransferUpdate = value?.let { it }
+    }
+
+  abstract var onFileReceived: ((transferId: String, peerId: String, uri: String, name: String, mimeType: String?, size: Double) -> Unit)?
+
+  private var onFileReceived_cxx: Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double?
+    @Keep
+    @DoNotStrip
+    get() {
+      return onFileReceived?.let { Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double_java(it) }
+    }
+    @Keep
+    @DoNotStrip
+    set(value) {
+      onFileReceived = value?.let { it }
+    }
+
   // Methods
   @DoNotStrip
   @Keep
   abstract fun isPlayServicesAvailable(): Promise<Boolean>
-  
+
   @DoNotStrip
   @Keep
   abstract fun startAdvertise(name: String, strategy: Strategy?): Promise<String>
-  
+
   @DoNotStrip
   @Keep
   abstract fun stopAdvertise(): Promise<Unit>
-  
+
   @DoNotStrip
   @Keep
   abstract fun startDiscovery(name: String, strategy: Strategy?): Promise<String>
-  
+
   @DoNotStrip
   @Keep
   abstract fun stopDiscovery(): Promise<Unit>
-  
+
   @DoNotStrip
   @Keep
   abstract fun requestConnection(advertisePeerId: String): Promise<Unit>
-  
+
   @DoNotStrip
   @Keep
   abstract fun acceptConnection(targetPeerId: String): Promise<Unit>
-  
+
   @DoNotStrip
   @Keep
   abstract fun rejectConnection(targetPeerId: String): Promise<Unit>
-  
+
   @DoNotStrip
   @Keep
   abstract fun disconnect(targetPeerId: String?): Promise<Unit>
-  
+
   @DoNotStrip
   @Keep
   abstract fun sendText(targetPeerId: String, text: String): Promise<Unit>
+
+  @DoNotStrip
+  @Keep
+  abstract fun sendFile(targetPeerId: String, uri: String, name: String?, mimeType: String?): Promise<String>
+
+  @DoNotStrip
+  @Keep
+  abstract fun cancelFileTransfer(transferId: String): Promise<Unit>
 
   // Default implementation of `HybridObject.toString()`
   override fun toString(): String {

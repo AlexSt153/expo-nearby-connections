@@ -26,6 +26,10 @@ namespace margelo::nitro::nearbyconnections {
       prototype.registerHybridSetter("onDisconnected", &HybridNearbyConnectionsSpec::setOnDisconnected);
       prototype.registerHybridGetter("onTextReceived", &HybridNearbyConnectionsSpec::getOnTextReceived);
       prototype.registerHybridSetter("onTextReceived", &HybridNearbyConnectionsSpec::setOnTextReceived);
+      prototype.registerHybridGetter("onFileTransferUpdate", &HybridNearbyConnectionsSpec::getOnFileTransferUpdate);
+      prototype.registerHybridSetter("onFileTransferUpdate", &HybridNearbyConnectionsSpec::setOnFileTransferUpdate);
+      prototype.registerHybridGetter("onFileReceived", &HybridNearbyConnectionsSpec::getOnFileReceived);
+      prototype.registerHybridSetter("onFileReceived", &HybridNearbyConnectionsSpec::setOnFileReceived);
       prototype.registerHybridMethod("isPlayServicesAvailable", &HybridNearbyConnectionsSpec::isPlayServicesAvailable);
       prototype.registerHybridMethod("startAdvertise", &HybridNearbyConnectionsSpec::startAdvertise);
       prototype.registerHybridMethod("stopAdvertise", &HybridNearbyConnectionsSpec::stopAdvertise);
@@ -36,6 +40,8 @@ namespace margelo::nitro::nearbyconnections {
       prototype.registerHybridMethod("rejectConnection", &HybridNearbyConnectionsSpec::rejectConnection);
       prototype.registerHybridMethod("disconnect", &HybridNearbyConnectionsSpec::disconnect);
       prototype.registerHybridMethod("sendText", &HybridNearbyConnectionsSpec::sendText);
+      prototype.registerHybridMethod("sendFile", &HybridNearbyConnectionsSpec::sendFile);
+      prototype.registerHybridMethod("cancelFileTransfer", &HybridNearbyConnectionsSpec::cancelFileTransfer);
     });
   }
 

@@ -16,6 +16,8 @@ public protocol HybridNearbyConnectionsSpec_protocol: HybridObject {
   var onConnected: ((_ peerId: String, _ name: String) -> Void)? { get set }
   var onDisconnected: ((_ peerId: String) -> Void)? { get set }
   var onTextReceived: ((_ peerId: String, _ text: String) -> Void)? { get set }
+  var onFileTransferUpdate: ((_ transferId: String, _ peerId: String, _ direction: String, _ status: String, _ bytesTransferred: Double, _ totalBytes: Double?, _ name: String?, _ mimeType: String?, _ error: String?) -> Void)? { get set }
+  var onFileReceived: ((_ transferId: String, _ peerId: String, _ uri: String, _ name: String, _ mimeType: String?, _ size: Double) -> Void)? { get set }
 
   // Methods
   func isPlayServicesAvailable() throws -> Promise<Bool>
@@ -28,6 +30,8 @@ public protocol HybridNearbyConnectionsSpec_protocol: HybridObject {
   func rejectConnection(targetPeerId: String) throws -> Promise<Void>
   func disconnect(targetPeerId: String?) throws -> Promise<Void>
   func sendText(targetPeerId: String, text: String) throws -> Promise<Void>
+  func sendFile(targetPeerId: String, uri: String, name: String?, mimeType: String?) throws -> Promise<String>
+  func cancelFileTransfer(transferId: String) throws -> Promise<Void>
 }
 
 public extension HybridNearbyConnectionsSpec_protocol {

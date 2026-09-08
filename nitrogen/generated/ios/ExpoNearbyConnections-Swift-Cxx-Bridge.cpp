@@ -21,7 +21,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
       swiftClosure.call(result);
     };
   }
-  
+
   // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
   Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept {
     auto swiftClosure = ExpoNearbyConnections::Func_void_std__exception_ptr::fromUnsafe(swiftClosureWrapper);
@@ -29,7 +29,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
       swiftClosure.call(error);
     };
   }
-  
+
   // pragma MARK: std::function<void(const std::string& /* result */)>
   Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept {
     auto swiftClosure = ExpoNearbyConnections::Func_void_std__string::fromUnsafe(swiftClosureWrapper);
@@ -37,7 +37,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
       swiftClosure.call(result);
     };
   }
-  
+
   // pragma MARK: std::function<void()>
   Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept {
     auto swiftClosure = ExpoNearbyConnections::Func_void::fromUnsafe(swiftClosureWrapper);
@@ -45,7 +45,7 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
       swiftClosure.call();
     };
   }
-  
+
   // pragma MARK: std::function<void(const std::string& /* peerId */, const std::string& /* name */)>
   Func_void_std__string_std__string create_Func_void_std__string_std__string(void* NON_NULL swiftClosureWrapper) noexcept {
     auto swiftClosure = ExpoNearbyConnections::Func_void_std__string_std__string::fromUnsafe(swiftClosureWrapper);
@@ -53,7 +53,23 @@ namespace margelo::nitro::nearbyconnections::bridge::swift {
       swiftClosure.call(peerId, name);
     };
   }
-  
+
+  // pragma MARK: std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>
+  Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_ create_Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = ExpoNearbyConnections::Func_void_std__string_std__string_std__string_std__string_double_std__optional_double__std__optional_std__string__std__optional_std__string__std__optional_std__string_::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::string& transferId, const std::string& peerId, const std::string& direction, const std::string& status, double bytesTransferred, std::optional<double> totalBytes, const std::optional<std::string>& name, const std::optional<std::string>& mimeType, const std::optional<std::string>& error) mutable -> void {
+      swiftClosure.call(transferId, peerId, direction, status, bytesTransferred, totalBytes, name, mimeType, error);
+    };
+  }
+
+  // pragma MARK: std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>
+  Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double create_Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = ExpoNearbyConnections::Func_void_std__string_std__string_std__string_std__string_std__optional_std__string__double::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::string& transferId, const std::string& peerId, const std::string& uri, const std::string& name, const std::optional<std::string>& mimeType, double size) mutable -> void {
+      swiftClosure.call(transferId, peerId, uri, name, mimeType, size);
+    };
+  }
+
   // pragma MARK: std::shared_ptr<HybridNearbyConnectionsSpec>
   std::shared_ptr<HybridNearbyConnectionsSpec> create_std__shared_ptr_HybridNearbyConnectionsSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
     ExpoNearbyConnections::HybridNearbyConnectionsSpec_cxx swiftPart = ExpoNearbyConnections::HybridNearbyConnectionsSpec_cxx::fromUnsafe(swiftUnsafePointer);

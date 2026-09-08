@@ -61,6 +61,10 @@ namespace margelo::nitro::nearbyconnections {
       virtual void setOnDisconnected(const std::optional<std::function<void(const std::string& /* peerId */)>>& onDisconnected) = 0;
       virtual std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* text */)>> getOnTextReceived() = 0;
       virtual void setOnTextReceived(const std::optional<std::function<void(const std::string& /* peerId */, const std::string& /* text */)>>& onTextReceived) = 0;
+      virtual std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>> getOnFileTransferUpdate() = 0;
+      virtual void setOnFileTransferUpdate(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* direction */, const std::string& /* status */, double /* bytesTransferred */, std::optional<double> /* totalBytes */, const std::optional<std::string>& /* name */, const std::optional<std::string>& /* mimeType */, const std::optional<std::string>& /* error */)>>& onFileTransferUpdate) = 0;
+      virtual std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>> getOnFileReceived() = 0;
+      virtual void setOnFileReceived(const std::optional<std::function<void(const std::string& /* transferId */, const std::string& /* peerId */, const std::string& /* uri */, const std::string& /* name */, const std::optional<std::string>& /* mimeType */, double /* size */)>>& onFileReceived) = 0;
 
     public:
       // Methods
@@ -74,6 +78,8 @@ namespace margelo::nitro::nearbyconnections {
       virtual std::shared_ptr<Promise<void>> rejectConnection(const std::string& targetPeerId) = 0;
       virtual std::shared_ptr<Promise<void>> disconnect(const std::optional<std::string>& targetPeerId) = 0;
       virtual std::shared_ptr<Promise<void>> sendText(const std::string& targetPeerId, const std::string& text) = 0;
+      virtual std::shared_ptr<Promise<std::string>> sendFile(const std::string& targetPeerId, const std::string& uri, const std::optional<std::string>& name, const std::optional<std::string>& mimeType) = 0;
+      virtual std::shared_ptr<Promise<void>> cancelFileTransfer(const std::string& transferId) = 0;
 
     protected:
       // Hybrid Setup
