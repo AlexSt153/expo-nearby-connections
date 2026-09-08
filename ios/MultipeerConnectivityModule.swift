@@ -77,9 +77,7 @@ public class MultipeerConnectivityModule: NSObject {
 
     public func startAdvertise(_ name: String) -> String {
         self.advertiser?.stopAdvertisingPeer()
-        self.session?.disconnect()
-        self.session = nil
-        self.failAllFileTransfers("Session restarted")
+        self.closeSession("Session restarted")
 
         let peerId = MCPeerID(displayName: name)
         self.myPeerId = peerId
@@ -108,9 +106,7 @@ public class MultipeerConnectivityModule: NSObject {
 
     public func startDiscovery(_ name: String) -> String {
         self.discovery?.stopBrowsingForPeers()
-        self.session?.disconnect()
-        self.session = nil
-        self.failAllFileTransfers("Session restarted")
+        self.closeSession("Session restarted")
 
         let peerId = MCPeerID(displayName: name)
         self.myPeerId = peerId
@@ -174,18 +170,26 @@ public class MultipeerConnectivityModule: NSObject {
     }
 
     public func disconnect() {
-        self.failAllFileTransfers("Session disconnected")
+        self.closeSession("Session disconnected")
         self.advertiser?.stopAdvertisingPeer()
         self.advertiser = nil
         self.discovery?.stopBrowsingForPeers()
         self.discovery = nil
-        self.session?.disconnect()
-        self.session = nil
         peerQueue.sync {
             self.connectedPeers.removeAll()
             self.discoveredPeers.removeAll()
             self.invitedPeers.removeAll()
         }
+    }
+
+    private func closeSession(_ message: String) {
+        let previousSession = self.session
+        self.session = nil
+        previousSession?.delegate = nil
+        // The session owns transport cancellation. Cancelling each Progress as
+        // well can overlap MCSession's incoming-stream teardown.
+        previousSession?.disconnect()
+        self.failAllFileTransfers(message)
     }
 
     public func sendText(to peerId: String, payload text: String) throws {
@@ -333,8 +337,9 @@ public class MultipeerConnectivityModule: NSObject {
         throw moduleError("SendFile: Unsupported URI. Use a file:// URI.")
     }
 
-    private func handleFileMetadata(peerId: String, metadata: FileTransferMetadata) {
+    private func handleFileMetadata(session: MCSession, peerId: String, metadata: FileTransferMetadata) {
         fileQueue.async {
+            guard self.session === session else { return }
             let terminalKey = IncomingTerminalKey(
                 transferId: metadata.transferId,
                 peerId: peerId
@@ -425,11 +430,13 @@ public class MultipeerConnectivityModule: NSObject {
     }
 
     private func handleIncomingResourceStarted(
+        session: MCSession,
         transferId: String,
         peerId: String,
         progress: Progress
     ) {
         fileQueue.async {
+            guard self.session === session else { return }
             let terminalKey = IncomingTerminalKey(transferId: transferId, peerId: peerId)
             guard !self.recentIncomingTerminals.contains(terminalKey) else {
                 progress.cancel()
@@ -454,6 +461,7 @@ public class MultipeerConnectivityModule: NSObject {
     }
 
     private func handleIncomingResourceFinished(
+        session: MCSession,
         transferId: String,
         peerId: String,
         temporaryURL: URL?,
@@ -476,6 +484,10 @@ public class MultipeerConnectivityModule: NSObject {
         }
 
         fileQueue.async {
+            guard self.session === session else {
+                cachedURL?.deletingLastPathComponent().removeRecursivelyIfPresent()
+                return
+            }
             guard let record = self.incomingFiles.removeValue(forKey: transferId) else {
                 cachedURL?.deletingLastPathComponent().removeRecursivelyIfPresent()
                 return
@@ -716,15 +728,15 @@ public class MultipeerConnectivityModule: NSObject {
         metadataTimeouts.removeValue(forKey: transferId)?.cancel()
     }
 
-    private func failFileTransfers(for peerId: String, message: String) {
-        fileQueue.async {
+    private func failFileTransfers(for peerId: String, message: String, session: MCSession? = nil) {
+        fileQueue.sync {
+            if let session, self.session !== session { return }
             let outgoing = self.outgoingFiles.values.filter { $0.peerId == peerId }
             let incoming = self.incomingFiles.values.filter { $0.peerId == peerId }
 
             for record in outgoing {
                 self.outgoingFiles.removeValue(forKey: record.transferId)
                 record.observation?.invalidate()
-                record.progress.cancel()
                 self.emitFileTransferUpdate(
                     record: record,
                     status: Self.statusFailed,
@@ -734,7 +746,6 @@ public class MultipeerConnectivityModule: NSObject {
             for record in incoming {
                 self.incomingFiles.removeValue(forKey: record.transferId)
                 record.observation?.invalidate()
-                record.progress.cancel()
                 _ = self.rememberIncomingTerminal(record.transferId, peerId: peerId)
                 self.emitFileTransferUpdate(
                     record: record,
@@ -891,6 +902,7 @@ extension MultipeerConnectivityModule: MCNearbyServiceBrowserDelegate {
 
 extension MultipeerConnectivityModule: MCSessionDelegate {
     public func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        guard self.session === session else { return }
         let peerIdHash = String(peerID.hash)
         switch state {
         case .connected:
@@ -902,7 +914,7 @@ extension MultipeerConnectivityModule: MCSessionDelegate {
             peerQueue.sync {
                 self.connectedPeers.removeValue(forKey: peerIdHash)
             }
-            failFileTransfers(for: peerIdHash, message: "Peer disconnected")
+            failFileTransfers(for: peerIdHash, message: "Peer disconnected", session: session)
             self.delegate?.onDisconnected(fromPeerId: peerIdHash)
         case .connecting:
             print("Session Events: connecting with peer \(peerID.displayName)")
@@ -912,6 +924,7 @@ extension MultipeerConnectivityModule: MCSessionDelegate {
     }
 
     public func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        guard self.session === session else { return }
         let peerIdHash = String(peerID.hash)
         switch FileTransferProtocol.decode(data) {
         case .notControl:
@@ -921,7 +934,7 @@ extension MultipeerConnectivityModule: MCSessionDelegate {
             }
             self.delegate?.onTextReceived(fromPeerId: peerIdHash, payload: text)
         case .metadata(let metadata):
-            handleFileMetadata(peerId: peerIdHash, metadata: metadata)
+            handleFileMetadata(session: session, peerId: peerIdHash, metadata: metadata)
         case .invalid(let reason):
             print("Session Events: ignoring invalid file control message: \(reason)")
         }
@@ -942,7 +955,9 @@ extension MultipeerConnectivityModule: MCSessionDelegate {
         fromPeer peerID: MCPeerID,
         with progress: Progress
     ) {
+        guard self.session === session else { return }
         handleIncomingResourceStarted(
+            session: session,
             transferId: resourceName,
             peerId: String(peerID.hash),
             progress: progress
@@ -956,7 +971,7 @@ extension MultipeerConnectivityModule: MCSessionDelegate {
         certificateHandler: @escaping (Bool) -> Void
     ) {
         print("Session Events: didReceiveCertificate with peer \(peerID.displayName)")
-        certificateHandler(true)
+        certificateHandler(self.session === session)
     }
 
     public func session(
@@ -966,7 +981,9 @@ extension MultipeerConnectivityModule: MCSessionDelegate {
         at localURL: URL?,
         withError error: (any Error)?
     ) {
+        guard self.session === session else { return }
         handleIncomingResourceFinished(
+            session: session,
             transferId: resourceName,
             peerId: String(peerID.hash),
             temporaryURL: localURL,
