@@ -10,6 +10,8 @@ permissions:
 
 jobs:
   publish:
+    # Fork releases distribute tested archives; only upstream may publish to npm.
+    if: github.repository == 'puguhsudarma/expo-nearby-connections'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
